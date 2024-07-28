@@ -1,4 +1,5 @@
 name = ft_inception
+DATA_DIR		=	$(HOME)/data
 
 create_dirs:
 	@echo "\e[36mCreating the volumes (dirs) at $(DATA_DIR)\e[0m"
@@ -6,28 +7,27 @@ create_dirs:
 	@mkdir -p $(DATA_DIR)/wordpress
 
 all: create_dirs
-	@printf "Launch configuration ${name}...\n"
-	@docker-compose -f ./docker-compose.yml up -d
+	@echo "Launch configuration ${name}...\n"
+	@docker compose -f srcs/docker-compose.yml up -d
 
 build: create_dirs
-	@printf "Building configuration ${name}...\n"
-	@docker-compose -f ./docker-compose.yml up -d --build
+	@echo "Building configuration ${name}...\n"
+	@docker compose -f srcs/docker-compose.yml up -d --build
 
 down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker-compose -f ./docker-compose.yml down
+	@echo "Stopping configuration ${name}...\n"
+	@docker compose -f srcs/docker-compose.yml down
 
 re:	down
-	@printf "Rebuild configuration ${name}...\n"
-	@docker-compose -f ./docker-compose.yml up -d --build
+	@echo "Rebuild configuration ${name}...\n"
+	@docker compose -f srcs/docker-compose.yml up -d --build
 
 clean: down
-	@printf "Cleaning configuration ${name}...\n"
+	@echo "Cleaning configuration ${name}...\n"
 	@docker system prune -a
 
-fclean:
-	@printf "Total clean of all configurations docker\n"
-	@docker stop $$(docker ps -qa)
+fclean: down
+	@echo "Total clean of all configurations docker\n"
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 	@docker volume prune --force

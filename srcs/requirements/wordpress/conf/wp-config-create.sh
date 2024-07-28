@@ -2,7 +2,7 @@
 
 # Wait for MariaDB to be ready
 echo "Waiting for MariaDB to be ready..."
-while ! mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" --silent; do
+while ! mysqladmin ping -h"$DB_HOST" -u "$DB_USER" -p"$DB_PASS" --silent; do
     sleep 1
 done
 
@@ -21,7 +21,7 @@ else
     wp config create --dbname=${DB_NAME} \
                      --dbhost=${DB_HOST} \
                      --dbuser=${DB_USER} \
-                     --dbpass=${DB_PASSWORD} \
+                     --dbpass=${DB_PASS} \
                      --dbprefix='wp_' \
                      --dbcharset='utf8' \
                      --dbcollate=''
@@ -89,6 +89,7 @@ fi
 
 chown -R nobody:nogroup /var/www/html && \
 chmod -R 777 /var/www/;
+# chmod -R 0777 wp-content/
 
 # Start PHP-FPM
 echo "Starting php-fpm..."
