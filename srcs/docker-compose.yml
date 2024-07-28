@@ -10,10 +10,13 @@ services:
       - wordpress
     ports:
       - "443:443"
+    networks:
+      - inception
     volumes:
       - ./requirements/nginx/conf/:/etc/nginx/http.d/
       - ./requirements/nginx/tools:/etc/nginx/ssl/
-      - /home/${USER}/simple_docker_nginx_html/public/html:/var/www/
+#      - /home/${USER}/simple_docker_nginx_html/public/html:/var/www/
+      - wp-volume:/var/www/
     restart: always
 
   mariadb:
@@ -28,6 +31,8 @@ services:
     container_name: mariadb
     ports:
       - "3306:3306"
+    networks:
+      - inception
     volumes:
       - db-volume:/var/lib/mysql
     restart: always
@@ -43,6 +48,8 @@ services:
     container_name: wordpress
     depends_on:
       - mariadb
+    networks:
+      - inception
     restart: always
     volumes:
       - wp-volume:/var/www/

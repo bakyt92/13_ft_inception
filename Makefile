@@ -1,9 +1,15 @@
 name = ft_inception
-all:
+
+create_dirs:
+	@echo "\e[36mCreating the volumes (dirs) at $(DATA_DIR)\e[0m"
+	@mkdir -p $(DATA_DIR)/mariadb
+	@mkdir -p $(DATA_DIR)/wordpress
+
+all: create_dirs
 	@printf "Launch configuration ${name}...\n"
 	@docker-compose -f ./docker-compose.yml up -d
 
-build:
+build: create_dirs
 	@printf "Building configuration ${name}...\n"
 	@docker-compose -f ./docker-compose.yml up -d --build
 
