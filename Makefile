@@ -1,5 +1,8 @@
 name = ft_inception
-DATA_DIR		=	$(HOME)/data
+#for ubuntu
+#DATA_DIR		=	$(HOME)/data
+# for macos 
+DATA_DIR		=	/Users/bakytn/data
 
 create_dirs:
 	@echo "\e[36mCreating the volumes (dirs) at $(DATA_DIR)\e[0m"
