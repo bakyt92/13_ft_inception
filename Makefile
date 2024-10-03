@@ -33,6 +33,8 @@ fclean: down
 	@echo "Total clean of all configurations docker\n"
 	@docker system prune --all --force --volumes
 	@docker network prune --force
-	@docker volume prune --force
+	@docker volume prune --all --force
+	@docker volume rm srcs_db-volume
+	@docker volume rm srcs_wp-volume
 
 .PHONY	: all build down re clean fclean
